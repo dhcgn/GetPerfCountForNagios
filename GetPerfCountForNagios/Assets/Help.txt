@@ -1,0 +1,12 @@
+﻿Syntax: GetPerfCountForNagios.exe [-Name] Name [-Label] Label [-Unit] Unit 
+                                  [-Warning] Warning [-Critical] Critical 
+								  [-Min] Min [-Max] Max [-h|\h|-?|\?|-help|\help]
+
+Optionen:
+    -Name          e.g. \Processor Information(_Total)\% Processor Time
+    -Label         [Todo]
+    -Unit          [Todo]
+    -Warning       [Todo]
+    -Critical      [Todo]
+    -Min           [Todo]
+    -Max           [Todo]
