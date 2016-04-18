@@ -24,7 +24,7 @@ namespace GetPerfCountForNagios
 
         internal static ParseResult ParseConfig(string[] args)
         {
-            var name = args.Skip(Array.IndexOf(args, "-Name") + 1).Take(1).FirstOrDefault();
+            var name = GetFollowedElement(args, "-Name");
             var match = Regex.Match(name ?? String.Empty, @"\\(?<Category>[^\(]*)(\((?<Instance>.*.)\))?\\(?<Name>.*.)");
 
             Config config = new Config()
