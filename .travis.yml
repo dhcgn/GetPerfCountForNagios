@@ -1,2 +1,8 @@
 language: csharp
 solution: GetPerfCountForNagios.sln
+install:
+  - nuget restore GetPerfCountForNagios.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release GetPerfCountForNagios.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./GetPerfCountForNagios.Test/bin/Release/GetPerfCountForNagios.Test.dll
