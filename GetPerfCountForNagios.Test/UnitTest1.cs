@@ -60,15 +60,15 @@ namespace GetPerfCountForNagios.Test
 
             Console.Out.WriteLine("Out: " + this.ConsoleOutput);
 
-            var expectedOutput = "Error, please use /h for help.\r\n" +
-                                 "Error Message: \r\n" +
-                                 "Missing Attributes: \r\n" +
-                                 "-Label \r\n" +
-                                 "-Unit \r\n" +
-                                 "-Warning \r\n" +
-                                 "-Critical \r\n" +
-                                 "-Min \r\n" +
-                                 "-Max \r\n\r\n";
+            var expectedOutput = "Error, please use /h for help." + Environment.NewLine+
+                                 "Error Message: " + Environment.NewLine +
+                                 "Missing Attributes: " + Environment.NewLine +
+                                 "-Label " + Environment.NewLine +
+                                 "-Unit " + Environment.NewLine +
+                                 "-Warning " + Environment.NewLine +
+                                 "-Critical " + Environment.NewLine +
+                                 "-Min " + Environment.NewLine +
+                                 "-Max "+Environment.NewLine + Environment.NewLine;
 
 
             Assert.AreEqual(expectedOutput, new string(this.ConsoleOutput.ToCharArray().Take(128).ToArray()));

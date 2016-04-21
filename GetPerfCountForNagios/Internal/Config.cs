@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace GetPerfCountForNagios
@@ -62,26 +63,25 @@ namespace GetPerfCountForNagios
 
         private static string CheckForMissingAttributes(string[] args)
         {
-            string test = null;
+            var sb = new StringBuilder();
 
-            test += FindMissingAttributes(args, nameof(Config.Label)).ToString();
-            test += FindMissingAttributes(args, nameof(Config.Unit)).ToString();
-            test += FindMissingAttributes(args, nameof(Config.Warning)).ToString();
-            test += FindMissingAttributes(args, nameof(Config.Critical)).ToString();
-            test += FindMissingAttributes(args, nameof(Config.Min)).ToString();
-            test += FindMissingAttributes(args, nameof(Config.Max)).ToString();
+            FindMissingAttributes(args, nameof(Config.Label), sb);
+            FindMissingAttributes(args, nameof(Config.Unit), sb);
+            FindMissingAttributes(args, nameof(Config.Warning), sb);
+            FindMissingAttributes(args, nameof(Config.Critical), sb);
+            FindMissingAttributes(args, nameof(Config.Min), sb);
+            FindMissingAttributes(args, nameof(Config.Max), sb);
 
-            return test;
+            return sb.ToString();
         }
 
-        private static string FindMissingAttributes(string[] args, string attribute)
+        private static void FindMissingAttributes(string[] args, string attribute, StringBuilder sb)
         {
             if (!args.Contains($"-{attribute}"))
             {
-               return $"-{attribute} \r\n";
+                sb.AppendLine($"-{attribute} ");
+                return;
             }
-
-            return "";
         }
 
 
