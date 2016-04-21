@@ -40,14 +40,17 @@ namespace GetPerfCountForNagios
                 Min = GetFollowedElement(args, $"-{nameof(config.Min)}"),
                 Max = GetFollowedElement(args, $"-{nameof(config.Max)}"),
             };
-            var missingAttributes = "Missing Attributes: \r\n";
+            var missingAttributes = CheckForMissingAttributes(args);
 
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Label)}");
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Unit)}");
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Warning)}");
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Critical)}");
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Min)}");
-            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Max)}");
+            if (!String.IsNullOrEmpty(missingAttributes))
+            {
+                missingAttributes = "Error Message: \r\nMissing Attributes: \r\n" + missingAttributes;
+            }
+            else
+            {
+                missingAttributes = null;
+            }
+
 
             return new ParseResult()
             {
@@ -57,14 +60,30 @@ namespace GetPerfCountForNagios
             };
         }
 
-        private static string CheckForMissingAttributes(string[] args, string attribute)
+        private static string CheckForMissingAttributes(string[] args)
         {
-            if (!args.Contains(attribute))
+            string test = null;
+
+            test += FindMissingAttributes(args, nameof(Config.Label)).ToString();
+            test += FindMissingAttributes(args, nameof(Config.Unit)).ToString();
+            test += FindMissingAttributes(args, nameof(Config.Warning)).ToString();
+            test += FindMissingAttributes(args, nameof(Config.Critical)).ToString();
+            test += FindMissingAttributes(args, nameof(Config.Min)).ToString();
+            test += FindMissingAttributes(args, nameof(Config.Max)).ToString();
+
+            return test;
+        }
+
+        private static string FindMissingAttributes(string[] args, string attribute)
+        {
+            if (!args.Contains($"-{attribute}"))
             {
-                return $"-{attribute} \r\n";
+               return $"-{attribute} \r\n";
             }
+
             return "";
         }
+
 
         private static string GetFollowedElement(string[] args, string name)
         {

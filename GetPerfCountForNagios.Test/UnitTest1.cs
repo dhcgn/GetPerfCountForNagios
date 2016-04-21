@@ -42,7 +42,36 @@ namespace GetPerfCountForNagios.Test
         {
             Program.Main(CreateConsoleParameter(parameter));
 
-            Assert.AreEqual("Syntax: GetPerfCountForNagios.exe", new string(this.ConsoleOutput.ToCharArray().Take(33).ToArray()));
+            Assert.AreEqual("Help:\n\nSyntax: GetPerfCountForNagios.exe", new string(this.ConsoleOutput.ToCharArray().Take(40).ToArray()));
+        }
+
+        [Test]
+        public void Integration_Missing_Attributes_Succes()
+        {
+            var parameter = new[]
+            {
+                "-Name",
+                @"\Processor Information(_Total)\% Processor Time",
+            };
+
+            Program.Perf = new MyPerformanceCounter();
+
+            Program.Main(parameter);
+
+            Console.Out.WriteLine("Out: " + this.ConsoleOutput);
+
+            var expectedOutput = "Error, please use /h for help.\r\n" +
+                                 "Error Message: \r\n" +
+                                 "Missing Attributes: \r\n" +
+                                 "-Label \r\n" +
+                                 "-Unit \r\n" +
+                                 "-Warning \r\n" +
+                                 "-Critical \r\n" +
+                                 "-Min \r\n" +
+                                 "-Max \r\n\r\n";
+
+
+            Assert.AreEqual(expectedOutput, new string(this.ConsoleOutput.ToCharArray().Take(128).ToArray()));
         }
 
         [Test]

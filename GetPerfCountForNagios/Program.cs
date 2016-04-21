@@ -24,7 +24,7 @@ namespace GetPerfCountForNagios
 
             if (parseResult.Error != null)
             {
-                Writer.WriteLine("Error, please use /h.");
+                Writer.WriteLine("Error, please use /h for help.");
                 Writer.WriteLine(parseResult.Error);
                 return;
             }
