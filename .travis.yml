@@ -5,4 +5,4 @@ install:
   - nuget restore GetPerfCountForNagios.sln
 script:
   - xbuild /p:Configuration=Release GetPerfCountForNagios.sln
-  - nunit-console ./GetPerfCountForNagios.Test/bin/Release/GetPerfCountForNagios.Test.dll
+  - nunit-console ./GetPerfCountForNagios.Test/bin/Release/GetPerfCountForNagios.Test.dll -exclude IgnoreTravis
