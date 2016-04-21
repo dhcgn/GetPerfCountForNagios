@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace GetPerfCountForNagios.Test
 {
@@ -98,6 +99,42 @@ namespace GetPerfCountForNagios.Test
             Program.Main(parameter);
 
             Assert.IsTrue(Regex.IsMatch(this.ConsoleOutput, "^\'CPU\'=\\d{1,2}(.\\d{1,})?\\[%\\];90;95;0;100"));
+        }
+
+        [Test]
+        public void Intergration_Real_CPU_InitValue_Success()
+        {
+            var parameter = new[]
+            {
+                "-Name",
+                @"\Processor Information(_Total)\% Processor Time",
+                "-Label",
+                "CPU",
+                "-Unit",
+                "%",
+                "-Warning",
+                "90",
+                "-Critical",
+                "95",
+                "-Min",
+                "0",
+                "-Max",
+                "100"
+            };
+
+            Program.Perf = new MyPerformanceCounter();
+
+            Program.Main(parameter);
+
+            var isMatch = Regex.Match(this.ConsoleOutput, "^\'CPU\'=(?<value>\\d{1,2}(.\\d{1,})?)\\[%\\];90;95;0;100");
+            var value = isMatch.Groups["value"].Value;
+
+            Assert.IsNotEmpty(value, "Get value from nagios output");
+
+            float valueFloat;
+            Assert.IsTrue(float.TryParse(value, out valueFloat), "Parse to float");
+
+            Assert.AreNotEqual(0.0f, valueFloat);
         }
 
         [Test]

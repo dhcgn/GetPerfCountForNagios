@@ -56,7 +56,7 @@ namespace GetPerfCountForNagios
             Perf.NextValue();
 
             // Todo Should this be a parameter, e.g. check intervall of nagios?
-            Thread.Sleep(100);
+            Thread.Sleep(500);
 
             var result = Perf.NextValue();
 
