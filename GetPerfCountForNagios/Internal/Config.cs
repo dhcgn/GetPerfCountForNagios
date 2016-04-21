@@ -45,7 +45,7 @@ namespace GetPerfCountForNagios
 
             if (!String.IsNullOrEmpty(missingAttributes))
             {
-                missingAttributes = "Error Message: \r\nMissing Attributes: \r\n" + missingAttributes;
+                missingAttributes = "Error Message: " + Environment.NewLine + "Missing Attributes: " + Environment.NewLine + missingAttributes;
             }
             else
             {
@@ -56,7 +56,6 @@ namespace GetPerfCountForNagios
             return new ParseResult()
             {
                 Config = config,
-                // Todo Error handling
                 Error = missingAttributes,
             };
         }

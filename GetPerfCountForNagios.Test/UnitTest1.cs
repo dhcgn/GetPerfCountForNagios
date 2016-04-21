@@ -58,8 +58,6 @@ namespace GetPerfCountForNagios.Test
 
             Program.Main(parameter);
 
-            Console.Out.WriteLine("Out: " + this.ConsoleOutput);
-
             var expectedOutput = "Error, please use /h for help." + Environment.NewLine+
                                  "Error Message: " + Environment.NewLine +
                                  "Missing Attributes: " + Environment.NewLine +
@@ -99,7 +97,6 @@ namespace GetPerfCountForNagios.Test
 
             Program.Main(parameter);
 
-            Console.Out.WriteLine("Out: " + this.ConsoleOutput);
             Assert.IsTrue(Regex.IsMatch(this.ConsoleOutput, "^\'CPU\'=\\d{1,2}(.\\d{1,})?\\[%\\];90;95;0;100"));
         }
 
@@ -128,7 +125,6 @@ namespace GetPerfCountForNagios.Test
 
             Program.Main(parameter);
 
-            Console.Out.WriteLine("Out: " + this.ConsoleOutput);
             Assert.IsTrue(Regex.IsMatch(this.ConsoleOutput, "^\'Mem\'=\\d{1,}\\[MB\\];7000;8000;0;12000$"));
         }
 
