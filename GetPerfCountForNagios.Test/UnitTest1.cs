@@ -102,6 +102,7 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
+        [Category("IgnoreTravis")]
         public void Intergration_Real_CPU_InitValue_Success()
         {
             var parameter = new[]
