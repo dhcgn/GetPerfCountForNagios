@@ -1,0 +1,6 @@
+language: csharp
+solution: GetPerfCountForNagios.sln
+install:
+  - nuget restore GetPerfCountForNagios.sln
+script:
+  - xbuild /p:Configuration=Release GetPerfCountForNagios.sln
