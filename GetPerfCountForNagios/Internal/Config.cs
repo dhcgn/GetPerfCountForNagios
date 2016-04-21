@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace GetPerfCountForNagios
@@ -39,13 +40,30 @@ namespace GetPerfCountForNagios
                 Min = GetFollowedElement(args, $"-{nameof(config.Min)}"),
                 Max = GetFollowedElement(args, $"-{nameof(config.Max)}"),
             };
+            var missingAttributes = "Missing Attributes: \r\n";
+
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Label)}");
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Unit)}");
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Warning)}");
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Critical)}");
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Min)}");
+            missingAttributes += CheckForMissingAttributes(args, $"{nameof(config.Max)}");
 
             return new ParseResult()
             {
                 Config = config,
                 // Todo Error handling
-                Error = null,
+                Error = missingAttributes,
             };
+        }
+
+        private static string CheckForMissingAttributes(string[] args, string attribute)
+        {
+            if (!args.Contains(attribute))
+            {
+                return $"-{attribute} \r\n";
+            }
+            return "";
         }
 
         private static string GetFollowedElement(string[] args, string name)
