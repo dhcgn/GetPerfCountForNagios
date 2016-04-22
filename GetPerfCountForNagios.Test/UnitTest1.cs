@@ -46,6 +46,7 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
+        [Category("IgnoreTravis")]
         public void Intergration_PerformanceCounter_Doesnt_Exist_Success()
         {
             var parameter = new[]
