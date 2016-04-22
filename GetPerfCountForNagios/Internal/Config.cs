@@ -1,12 +1,21 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using GetPerfCountForNagios.Internal;
 
 namespace GetPerfCountForNagios
 {
     internal class Config
     {
+        public class Defaults
+        {
+            internal const string DefaultValueLabel = "Performance Counter";
+            internal const string DefaultValueUnit = "N";
+            internal const string DefaultValueWarning = "85";
+            internal const string DefaultValueCritical = "95";
+            internal const string DefaultValueMin = "0";
+            internal const string DefaultValueMax = "100";
+        }
+
         public string CategoryName { get; private set; }
         public string CounterName { get; private set; }
         public string InstanceName { get; private set; }
@@ -63,19 +72,19 @@ namespace GetPerfCountForNagios
                 config.Label = config.CounterName;
 
             if (!args.Contains($"-{nameof(Config.Unit)}"))
-                config.Unit = config.CounterName.Contains("%") ? "%" : DefaultValues.DefaultValueUnit;
+                config.Unit = config.CounterName.Contains("%") ? "%" : Defaults.DefaultValueUnit;
 
             if (!args.Contains($"-{nameof(Config.Warning)}"))
-                config.Warning = DefaultValues.DefaultValueWarning;
+                config.Warning = Defaults.DefaultValueWarning;
 
             if (!args.Contains($"-{nameof(Config.Critical)}"))
-                config.Critical = DefaultValues.DefaultValueCritical;
+                config.Critical = Defaults.DefaultValueCritical;
 
             if (!args.Contains($"-{nameof(Config.Min)}"))
-                config.Min = DefaultValues.DefaultValueMin;
+                config.Min = Defaults.DefaultValueMin;
 
             if (!args.Contains($"-{nameof(Config.Max)}"))
-                config.Max = DefaultValues.DefaultValueMax;
+                config.Max = Defaults.DefaultValueMax;
         }
 
         private static string GetFollowedElement(string[] args, string name)

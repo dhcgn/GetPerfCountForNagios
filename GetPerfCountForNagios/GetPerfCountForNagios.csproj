@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Config.cs" />
-    <Compile Include="Internal\DefaultValues.cs" />
     <Compile Include="Internal\IPerformanceCounter.cs" />
     <Compile Include="Internal\MockPerformanceCounter.cs" />
     <Compile Include="Internal\MyPerformanceCounter.cs" />
