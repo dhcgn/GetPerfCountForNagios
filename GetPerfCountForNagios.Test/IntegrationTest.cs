@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace GetPerfCountForNagios.Test
 {
@@ -40,10 +39,8 @@ namespace GetPerfCountForNagios.Test
             Assert.AreEqual("Help:\n\nSyntax: GetPerfCountForNagios.exe", new string(this.ConsoleOutput.ToCharArray().Take(40).ToArray()));
         }
 
-        // Add Expected Exception
         [Test]
-        [Category("IgnoreTravis")]
-        public void Intergration_PerformanceCounter_Doesnt_Exist_Success()
+        public void Intergration_PerformanceCounter_Failure()
         {
             var parameter = new[]
             {
@@ -65,12 +62,7 @@ namespace GetPerfCountForNagios.Test
 
             Program.Perf = new MyPerformanceCounter();
 
-            Program.Main(parameter);
-
-            var expectedOutput = "Error, please use /h for help." + Environment.NewLine +
-                                 "Performance Coutner \"TestCounter\" doesnt exist!" + Environment.NewLine;
-
-            Assert.AreEqual(expectedOutput, this.ConsoleOutput);
+            Assert.Catch(typeof(System.InvalidOperationException), () => Program.Main(parameter));
         }
 
         [Test]
