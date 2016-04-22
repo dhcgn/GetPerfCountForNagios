@@ -52,7 +52,7 @@ namespace GetPerfCountForNagios.Test
             var parameter = new[]
             {
                 "-Name",
-                @"\Processor Information(_Total)\TestCounter",
+                @"\Whatever(_Total)\TestCounter",
                 "-Label",
                 "CPU",
                 "-Unit",
