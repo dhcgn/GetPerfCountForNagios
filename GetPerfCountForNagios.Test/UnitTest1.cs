@@ -46,6 +46,37 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
+        public void Intergration_PerformanceCounter_Doesnt_Exist_Success()
+        {
+            var parameter = new[]
+            {
+                "-Name",
+                @"\Processor Information(_Total)\TestCounter",
+                "-Label",
+                "CPU",
+                "-Unit",
+                "%",
+                "-Warning",
+                "90",
+                "-Critical",
+                "95",
+                "-Min",
+                "0",
+                "-Max",
+                "100"
+            };
+
+            Program.Perf = new MyPerformanceCounter();
+
+            Program.Main(parameter);
+
+            var expectedOutput = "Error, please use /h for help." + Environment.NewLine +
+                                 "Performance Coutner \"TestCounter\" doesnt exist!" + Environment.NewLine;
+
+            Assert.AreEqual(expectedOutput ,this.ConsoleOutput);
+        }
+
+        [Test]
         public void Intergration_Real_CPU_InstanceAutomaticallySetToTotal_Success()
         {
             var parameter = new[]

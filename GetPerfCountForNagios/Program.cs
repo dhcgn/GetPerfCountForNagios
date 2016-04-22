@@ -33,6 +33,14 @@ namespace GetPerfCountForNagios
                                                     parseResult.Config.CounterName, 
                                                     parseResult.Config.InstanceName);
 
+            if (value.StartsWith("Error: "))
+            {
+                Writer.WriteLine("Error, please use /h for help.");
+                Writer.WriteLine($"Performance Coutner \"{parseResult.Config.CounterName}\" doesnt exist!");
+
+                return;
+            }
+
             var result = GetNagiosPerformanceDateString(value,
                                                         parseResult.Config.Label, 
                                                         parseResult.Config.Unit,
@@ -53,7 +61,14 @@ namespace GetPerfCountForNagios
         {
             Perf.Set(categoryName, counterName, instanceName);
 
-            Perf.NextValue();
+            try
+            {
+                Perf.NextValue();
+            }
+            catch (Exception exception)
+            {
+                return "Error: " + exception.ToString();
+            }
 
             // Todo Should this be a parameter, e.g. check intervall of nagios?
             Thread.Sleep(500);
