@@ -45,6 +45,11 @@ namespace GetPerfCountForNagios
 
             SetMissingAttributesToDefaultValue(args, config);
 
+            if (config.InstanceName == "*")
+            {
+                config.InstanceName = "_Total";
+            }
+
             var error = !args.Contains("-Name") ? "Missing Counter Name" : null;
 
             return new ParseResult()
