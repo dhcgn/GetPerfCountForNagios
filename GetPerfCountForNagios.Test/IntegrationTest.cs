@@ -40,6 +40,7 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
+        [Category("IgnoreTravis")]
         public void Intergration_PerformanceCounter_Failure()
         {
             var parameter = new[]
@@ -94,7 +95,7 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
-        public void Integration_Missing_Attributes_Succes()
+        public void Integration_Missing_Attributes_Success()
         {
             var parameter = new[]
             {

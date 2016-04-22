@@ -17,8 +17,6 @@ namespace GetPerfCountForNagios.Test
 
         #region Helper
 
-        public string ConsoleOutput => Program.Writer.ToString();
-
         public static object GetPropValue(object src, string propName)
         {
             return src.GetType().GetProperty(propName).GetValue(src, null);

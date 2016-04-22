@@ -33,14 +33,6 @@ namespace GetPerfCountForNagios
                                                     parseResult.Config.CounterName, 
                                                     parseResult.Config.InstanceName);
 
-            if (value.StartsWith("Error: "))
-            {
-                Writer.WriteLine("Error, please use /h for help.");
-                Writer.WriteLine($"Performance Coutner \"{parseResult.Config.CounterName}\" doesnt exist!");
-
-                return;
-            }
-
             var result = GetNagiosPerformanceDateString(value,
                                                         parseResult.Config.Label, 
                                                         parseResult.Config.Unit,
