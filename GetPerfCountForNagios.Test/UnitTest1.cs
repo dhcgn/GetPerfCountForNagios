@@ -46,6 +46,35 @@ namespace GetPerfCountForNagios.Test
         }
 
         [Test]
+        public void Intergration_Real_CPU_InstanceAutomaticallySetToTotal_Success()
+        {
+            var parameter = new[]
+            {
+                "-Name",
+                @"\Processor Information(*)\% Processor Time",
+                "-Label",
+                "CPU",
+                "-Unit",
+                "%",
+                "-Warning",
+                "90",
+                "-Critical",
+                "95",
+                "-Min",
+                "0",
+                "-Max",
+                "100"
+            };
+
+            Program.Perf = new MyPerformanceCounter();
+
+            Program.Main(parameter);
+
+            Assert.IsTrue(Regex.IsMatch(this.ConsoleOutput, "^\'CPU\'=\\d{1,2}(.\\d{1,})?\\[%\\];90;95;0;100"));
+        }
+
+
+        [Test]
         public void Integration_Missing_Attributes_Succes()
         {
             var parameter = new[]
