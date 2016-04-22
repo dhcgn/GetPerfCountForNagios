@@ -60,17 +60,8 @@ namespace GetPerfCountForNagios
         private static string GetPerformanceCounterValue(string categoryName, string counterName, string instanceName)
         {
             Perf.Set(categoryName, counterName, instanceName);
+            Perf.NextValue();
 
-            try
-            {
-                Perf.NextValue();
-            }
-            catch (Exception exception)
-            {
-                return "Error: " + exception.ToString();
-            }
-
-            // Todo Should this be a parameter, e.g. check intervall of nagios?
             Thread.Sleep(500);
 
             var result = Perf.NextValue();

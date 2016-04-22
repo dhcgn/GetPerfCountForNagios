@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using GetPerfCountForNagios.Internal;
 
@@ -56,42 +54,28 @@ namespace GetPerfCountForNagios
             {
                 Config = config,
                 Error = error
-                //Error = missingAttributes
             };
         }
 
         private static void SetMissingAttributesToDefaultValue(string[] args, Config config)
         {
             if (!args.Contains($"-{nameof(Config.Label)}"))
-            {
                 config.Label = config.CounterName;
-            }
 
             if (!args.Contains($"-{nameof(Config.Unit)}"))
-            {
                 config.Unit = config.CounterName.Contains("%") ? "%" : DefaultValues.DefaultValueUnit;
 
-            }
-
             if (!args.Contains($"-{nameof(Config.Warning)}"))
-            {
                 config.Warning = DefaultValues.DefaultValueWarning;
-            }
 
             if (!args.Contains($"-{nameof(Config.Critical)}"))
-            {
                 config.Critical = DefaultValues.DefaultValueCritical;
-            }
 
             if (!args.Contains($"-{nameof(Config.Min)}"))
-            {
                 config.Min = DefaultValues.DefaultValueMin;
-            }
 
             if (!args.Contains($"-{nameof(Config.Max)}"))
-            {
                 config.Max = DefaultValues.DefaultValueMax;
-            }
         }
 
         private static string GetFollowedElement(string[] args, string name)
