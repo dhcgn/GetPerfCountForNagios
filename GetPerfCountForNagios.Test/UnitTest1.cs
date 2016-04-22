@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace GetPerfCountForNagios.Test
 {
@@ -59,18 +58,37 @@ namespace GetPerfCountForNagios.Test
 
             Program.Main(parameter);
 
-            var expectedOutput = "Error, please use /h for help." + Environment.NewLine+
-                                 "Error Message: " + Environment.NewLine +
-                                 "Missing Attributes: " + Environment.NewLine +
-                                 "-Label " + Environment.NewLine +
-                                 "-Unit " + Environment.NewLine +
-                                 "-Warning " + Environment.NewLine +
-                                 "-Critical " + Environment.NewLine +
-                                 "-Min " + Environment.NewLine +
-                                 "-Max "+Environment.NewLine + Environment.NewLine;
+            Assert.IsTrue(Regex.IsMatch(this.ConsoleOutput, "^\'% Processor Time\'=\\d{1,2}(.\\d{1,})?\\[%\\];85;95;0;100"));
+        }
 
+        [Test]
+        public void Intergration_Name_Missing_Success()
+        {
+            var parameter = new[]
+            {
+                @"\Processor Information(_Total)\% Processor Time",
+                "-Label",
+                "CPU",
+                "-Unit",
+                "%",
+                "-Warning",
+                "90",
+                "-Critical",
+                "95",
+                "-Min",
+                "0",
+                "-Max",
+                "100"
+            };
 
-            Assert.AreEqual(expectedOutput, new string(this.ConsoleOutput.ToCharArray().Take(128).ToArray()));
+            Program.Perf = new MyPerformanceCounter();
+
+            Program.Main(parameter);
+
+            var expectedOutput = "Error, please use /h for help." + Environment.NewLine +
+                                 "Missing Counter Name" + Environment.NewLine;
+
+            Assert.AreEqual(expectedOutput, this.ConsoleOutput);
         }
 
         [Test]

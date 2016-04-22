@@ -22,7 +22,7 @@ namespace GetPerfCountForNagios
 
             var parseResult = Config.ParseConfig(args);
 
-            if (parseResult.Error != null)
+            if (!String.IsNullOrEmpty(parseResult.Error))
             {
                 Writer.WriteLine("Error, please use /h for help.");
                 Writer.WriteLine(parseResult.Error);

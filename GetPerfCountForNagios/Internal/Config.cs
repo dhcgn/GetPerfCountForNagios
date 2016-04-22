@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using GetPerfCountForNagios.Internal;
 
 namespace GetPerfCountForNagios
 {
@@ -41,48 +42,52 @@ namespace GetPerfCountForNagios
                 Min = GetFollowedElement(args, $"-{nameof(config.Min)}"),
                 Max = GetFollowedElement(args, $"-{nameof(config.Max)}"),
             };
-            var missingAttributes = CheckForMissingAttributes(args);
 
-            if (!String.IsNullOrEmpty(missingAttributes))
-            {
-                missingAttributes = "Error Message: " + Environment.NewLine + "Missing Attributes: " + Environment.NewLine + missingAttributes;
-            }
-            else
-            {
-                missingAttributes = null;
-            }
+            SetMissingAttributesToDefaultValue(args, config);
 
+            var error = !args.Contains("-Name") ? "Missing Counter Name" : null;
 
             return new ParseResult()
             {
                 Config = config,
-                Error = missingAttributes,
+                Error = error
+                //Error = missingAttributes
             };
         }
 
-        private static string CheckForMissingAttributes(string[] args)
+        private static void SetMissingAttributesToDefaultValue(string[] args, Config config)
         {
-            var sb = new StringBuilder();
-
-            FindMissingAttributes(args, nameof(Config.Label), sb);
-            FindMissingAttributes(args, nameof(Config.Unit), sb);
-            FindMissingAttributes(args, nameof(Config.Warning), sb);
-            FindMissingAttributes(args, nameof(Config.Critical), sb);
-            FindMissingAttributes(args, nameof(Config.Min), sb);
-            FindMissingAttributes(args, nameof(Config.Max), sb);
-
-            return sb.ToString();
-        }
-
-        private static void FindMissingAttributes(string[] args, string attribute, StringBuilder sb)
-        {
-            if (!args.Contains($"-{attribute}"))
+            if (!args.Contains($"-{nameof(Config.Label)}"))
             {
-                sb.AppendLine($"-{attribute} ");
-                return;
+                config.Label = config.CounterName;
+            }
+
+            if (!args.Contains($"-{nameof(Config.Unit)}"))
+            {
+                config.Unit = config.CounterName.Contains("%") ? "%" : DefaultValues.DefaultValueUnit;
+
+            }
+
+            if (!args.Contains($"-{nameof(Config.Warning)}"))
+            {
+                config.Warning = DefaultValues.DefaultValueWarning;
+            }
+
+            if (!args.Contains($"-{nameof(Config.Critical)}"))
+            {
+                config.Critical = DefaultValues.DefaultValueCritical;
+            }
+
+            if (!args.Contains($"-{nameof(Config.Min)}"))
+            {
+                config.Min = DefaultValues.DefaultValueMin;
+            }
+
+            if (!args.Contains($"-{nameof(Config.Max)}"))
+            {
+                config.Max = DefaultValues.DefaultValueMax;
             }
         }
-
 
         private static string GetFollowedElement(string[] args, string name)
         {
