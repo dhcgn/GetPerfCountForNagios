@@ -36,3 +36,4 @@ The code includes a ````Thread.Sleep(500)````. This is necessary because some of
 
 # Screenshot
 Example Usage with Powershell:
+![alt tag](https://github.com/dhcgn/GetPerfCountForNagios/blob/master/Example_use_PS.png)
