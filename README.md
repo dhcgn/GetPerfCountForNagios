@@ -2,7 +2,7 @@
 
 # Intro
 
-GetPerfCountForNagios is a small tool, which returns the value of one specified Performance Counter.
+GetPerfCountForNagios is a small tool, which returns the value of one specified Performance Counter.\r\n
 The format of the returned value is compatible with Nagios.
 
 More
