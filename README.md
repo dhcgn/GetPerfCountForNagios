@@ -19,13 +19,13 @@ GetPerfCountForNagios.exe [-Name] Name [-Label] Label [-Unit] Unit
 			  [-Min] Min [-Max] Max
 
 Parameter:
-  -Name          Name of the Performance Counter| e.g. \Processor Information(_Total)\% Processor Time
-  -Label           Label for the Result | e.g. Processor Time
-  -Unit             The Unit of measuring | e.g. %
-  -Warning     The warning Count of the result (Nagios warns if the result is higher as the result) | e.g. 85
-  -Critical        The critical Count of the result (Nagios warns if the result is higher as the result) | e.g. 95
-  -Min             The min Value of the result | e.g. 0
-  -Max            The max Value of the result | e.g. 100
+  -Name		Name of the Performance Counter| e.g. \Processor Information(_Total)\% Processor Time
+  -Label	Label for the Result | e.g. Processor Time
+  -Unit		The Unit of measuring | e.g. %
+  -Warning	The warning Count of the result (Nagios warns if the result is higher as the result) | e.g. 85
+  -Critical	The critical Count of the result (Nagios warns if the result is higher as the result) | e.g. 95
+  -Min		The min Value of the result | e.g. 0
+  -Max		The max Value of the result | e.g. 100
 ````
 
 With one of the following ````[-h|\h|-?|\?|-help|\help]```` as parameter you will get a small help displayed.
