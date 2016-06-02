@@ -5,9 +5,9 @@
 GetPerfCountForNagios is a small tool, which returns the value of one specified Performance Counter.
 The format of the returned value is compatible with Nagios.
 
-More
-	· Nagios-Plugins: https://nagios-plugins.org/doc/guidelines.html
-	· Performance Counter: https://msdn.microsoft.com/en-us/library/windows/desktop/aa373083(v=vs.85).aspx
+Read more:
+- Nagios-Plugins: https://nagios-plugins.org/doc/guidelines.html
+- Performance Counter: https://msdn.microsoft.com/en-us/library/windows/desktop/aa373083(v=vs.85).aspx
 
 # Usage
 To use this tool, parameters are needed. The Parameters and the Syntax are described in the following:
