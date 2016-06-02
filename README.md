@@ -15,8 +15,8 @@ To use this tool, parameters are needed. The Parameters and the Syntax are descr
 
 ````
 GetPerfCountForNagios.exe [-Name] Name [-Label] Label [-Unit] Unit 
-			  [-Warning] Warning [-Critical] Critical 
-			  [-Min] Min [-Max] Max
+			  	[-Warning] Warning [-Critical] Critical 
+			  	[-Min] Min [-Max] Max
 
 Parameter:
   -Name		Name of the Performance Counter| e.g. \Processor Information(_Total)\% Processor Time
